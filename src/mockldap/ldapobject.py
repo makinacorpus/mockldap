@@ -182,6 +182,12 @@ class LDAPObject(RecordableMethods):
         """
         return "dn:" + self.bound_as
 
+    @recorded
+    def passwd_s(self, user, oldpw, newpw, serverctrls=None, clientctrls=None):
+        """
+        """
+        return self._passwd_s(user, oldpw, newpw, serverctrls, clientctrls)
+
     #
     # Internal implementations
     #
@@ -379,6 +385,19 @@ class LDAPObject(RecordableMethods):
             raise ldap.NO_SUCH_OBJECT
 
         return (107, [])
+
+    def _passwd_s(self, user, oldpw, newpw, serverctrls=None, clientctrls=None):
+        self._check_valid_dn(user)
+
+        entry = self.directory.get(user)
+        if entry is None:
+            raise ldap.NO_SUCH_OBJECT
+
+        if oldpw is not None:
+            if entry['userPassword'][0] == oldpw:
+                entry['userPassword'] = [newpw]
+        else:
+            entry['userPassword'] = [newpw]
 
     #
     # Async
