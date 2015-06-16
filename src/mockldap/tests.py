@@ -213,6 +213,19 @@ class TestLDAPObject(unittest.TestCase):
         else:
             self.fail("Expected SeedRequired exception")
 
+    def test_search_s_mixed_case_dn(self):
+        dn = "cn=Edward,ou=example,o=test"
+        attrs = {
+            "objectClass": ["top"],
+            "cn": ["Edward"],
+        }
+        ldif = ldap.modlist.addModlist(attrs)
+        self.ldapobj.add_s(dn, ldif)
+
+        results = self.ldapobj.search_s(dn.lower(), ldap.SCOPE_BASE)
+
+        self.assertEqual(results, [(dn, attrs)])
+
     def test_search_s_get_items_that_have_userpassword_set(self):
         results = self.ldapobj.search_s(
             "ou=example,o=test", ldap.SCOPE_ONELEVEL, '(userPassword=*)')
