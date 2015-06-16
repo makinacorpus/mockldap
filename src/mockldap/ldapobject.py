@@ -242,7 +242,7 @@ class LDAPObject(RecordableMethods):
         # Find directory entries within the requested scope
         base_parts = ldap.dn.explode_dn(base.lower())
         base_len = len(base_parts)
-        dn_parts = dict((dn, ldap.dn.explode_dn(dn)) for dn in self.directory.keys())
+        dn_parts = dict((dn, ldap.dn.explode_dn(dn.lower())) for dn in self.directory.keys())
 
         if scope == ldap.SCOPE_BASE:
             dns = (dn for dn, parts in dn_parts.items() if parts == base_parts)
