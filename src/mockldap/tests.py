@@ -588,6 +588,25 @@ class TestLDAPObject(unittest.TestCase):
 
         self.assertEqual(self.ldapobj.whoami_s(), 'dn:cn=alice,ou=example,o=test')
 
+    def test_passwd_s_no_such_object(self):
+        with self.assertRaises(ldap.NO_SUCH_OBJECT):
+            self.ldapobj.passwd_s('uid=invalid,ou=example,o=test', '1', '2')
+
+    def test_passwd_s_invalid_dn(self):
+        with self.assertRaises(ldap.INVALID_DN_SYNTAX):
+            self.ldapobj.passwd_s('invalid', '1', '2')
+
+    def test_passwd_s_no_old_password(self):
+        self.ldapobj.passwd_s(alice[0], None, 'newpw')
+        self.assertEquals(self.ldapobj.directory[alice[0]]['userPassword'],
+                          ['newpw'])
+
+    def test_passwd_s_wrong_old_password(self):
+        # In case of wrong old password do nothing
+        self.ldapobj.passwd_s(alice[0], 'wrong', 'newpw')
+        self.assertEquals(self.ldapobj.directory[alice[0]]['userPassword'],
+                          alice[1]['userPassword'])
+
 
 def initialize(*args, **kwargs):
     """ Dummy patch target for the tests below. """
