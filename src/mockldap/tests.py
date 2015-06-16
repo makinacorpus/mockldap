@@ -224,7 +224,7 @@ class TestLDAPObject(unittest.TestCase):
 
         results = self.ldapobj.search_s(dn.lower(), ldap.SCOPE_BASE)
 
-        self.assertEqual(results, [(dn, attrs)])
+        self.assertEqual(results, [(dn.lower(), attrs)])
 
     def test_search_s_get_items_that_have_userpassword_set(self):
         results = self.ldapobj.search_s(
