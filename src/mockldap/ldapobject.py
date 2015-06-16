@@ -328,7 +328,7 @@ class LDAPObject(RecordableMethods):
             self.directory[dn]
             raise ldap.ALREADY_EXISTS
         except KeyError:
-            self.directory[dn] = entry
+            self.directory[dn.lower()] = entry
             return (105, [], len(self.methods_called()), [])
 
     def _rename_s(self, dn, newrdn, newsuperior):
