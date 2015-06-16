@@ -1,3 +1,11 @@
+v0.2.5 - June 16, 2015 - passwd_s
+---------------------------------
+
+- A simple implementation of passwd_s.
+
+- Fixes for DN case-insensitive matching.
+
+
 v0.2.4 - January 26, 2015 - SSHA fix
 ------------------------------------
 
