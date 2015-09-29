@@ -24,7 +24,7 @@ else:
 
 setup(
     name='mockldap',
-    version='0.2.5',
+    version='0.2.6',
     description=u"A simple mock implementation of python-ldap.",
     long_description=open('README').read(),
     url='http://bitbucket.org/psagers/mockldap/',
