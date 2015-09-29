@@ -1,6 +1,11 @@
 #!/usr/bin/env python
 
+import sys
+
 from setuptools import setup
+
+
+PY3 = (sys.version_info[0] == 3)
 
 try:
     import unittest.mock    # noqa
@@ -47,7 +52,7 @@ setup(
     ],
     keywords=['mock', 'ldap'],
     install_requires=[
-        'python-ldap',
+        'pyldap' if PY3 else 'python-ldap',
         'funcparserlib==0.3.6',
     ] + requires_mock,
     extras_require={

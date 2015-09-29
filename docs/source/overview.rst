@@ -31,12 +31,12 @@ Example
         """
         A simple test case showing off some of the basic features of mockldap.
         """
-        top = ('o=test', {'o': 'test'})
-        example = ('ou=example,o=test', {'ou': 'example'})
-        other = ('ou=other,o=test', {'ou': 'other'})
-        manager = ('cn=manager,ou=example,o=test', {'cn': 'manager', 'userPassword': ['ldaptest']})
-        alice = ('cn=alice,ou=example,o=test', {'cn': 'alice', 'userPassword': ['alicepw']})
-        bob = ('cn=bob,ou=other,o=test', {'cn': 'bob', 'userPassword': ['bobpw']})
+        top = ('o=test', {'o': ['test']})
+        example = ('ou=example,o=test', {'ou': ['example']})
+        other = ('ou=other,o=test', {'ou': ['other']})
+        manager = ('cn=manager,ou=example,o=test', {'cn': ['manager'], 'userPassword': ['ldaptest']})
+        alice = ('cn=alice,ou=example,o=test', {'cn': ['alice'], 'userPassword': ['alicepw']})
+        bob = ('cn=bob,ou=other,o=test', {'cn': ['bob'], 'userPassword': ['bobpw']})
 
         # This is the content of our mock LDAP directory. It takes the form
         # {dn: {attr: [value, ...], ...}, ...}.
