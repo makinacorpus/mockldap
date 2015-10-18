@@ -144,7 +144,7 @@ class TestLDAPObject(unittest.TestCase):
     def test_search_s_base_case_insensitive(self):
         results = self.ldapobj.search_s('cn=ALICE,ou=Example,o=TEST', ldap.SCOPE_BASE)
 
-        self.assertEquals(results, [alice])
+        self.assertEqual(results, [alice])
 
     def test_search_s_get_specific_attr(self):
         results = self.ldapobj.search_s("cn=alice,ou=example,o=test", ldap.SCOPE_BASE,
@@ -498,7 +498,7 @@ class TestLDAPObject(unittest.TestCase):
     def test_rename_s_only_rdn_append_value_to_existing_attr(self):
         self.ldapobj.rename_s(alice[0], 'uid=alice1')
 
-        self.assertEquals(
+        self.assertEqual(
             self.ldapobj.directory['uid=alice1,ou=example,o=test']['uid'],
             ['alice', 'alice1']
         )
@@ -507,8 +507,8 @@ class TestLDAPObject(unittest.TestCase):
         self.ldapobj.rename_s(alice[0], 'sn=alice1')
 
         self.assertIn('sn', self.ldapobj.directory['sn=alice1,ou=example,o=test'])
-        self.assertEquals(self.ldapobj.directory['sn=alice1,ou=example,o=test']['sn'],
-                          ['alice1'])
+        self.assertEqual(self.ldapobj.directory['sn=alice1,ou=example,o=test']['sn'],
+                         ['alice1'])
 
     def test_rename_s_removes_old_dn(self):
         self.ldapobj.rename_s(alice[0], 'uid=alice1')
@@ -598,14 +598,14 @@ class TestLDAPObject(unittest.TestCase):
 
     def test_passwd_s_no_old_password(self):
         self.ldapobj.passwd_s(alice[0], None, 'newpw')
-        self.assertEquals(self.ldapobj.directory[alice[0]]['userPassword'],
-                          ['newpw'])
+        self.assertEqual(self.ldapobj.directory[alice[0]]['userPassword'],
+                         ['newpw'])
 
     def test_passwd_s_wrong_old_password(self):
         # In case of wrong old password do nothing
         self.ldapobj.passwd_s(alice[0], 'wrong', 'newpw')
-        self.assertEquals(self.ldapobj.directory[alice[0]]['userPassword'],
-                          alice[1]['userPassword'])
+        self.assertEqual(self.ldapobj.directory[alice[0]]['userPassword'],
+                         alice[1]['userPassword'])
 
 
 def initialize(*args, **kwargs):
