@@ -1,4 +1,4 @@
-from __future__ import absolute_import
+from __future__ import absolute_import, division, print_function, unicode_literals, with_statement
 
 import base64
 from copy import deepcopy
@@ -292,7 +292,7 @@ class LDAPObject(RecordableMethods):
 
             if value is None:
                 value = []
-            elif type(value) is str:
+            elif not isinstance(value, list):
                 value = [value]
 
             if op == ldap.MOD_ADD:

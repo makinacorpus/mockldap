@@ -1,6 +1,8 @@
 """
 Tools for recording method calls and seeding return values.
 """
+from __future__ import absolute_import, division, print_function, unicode_literals, with_statement
+
 from collections import defaultdict
 from copy import deepcopy
 from functools import partial

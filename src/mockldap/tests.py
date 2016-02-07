@@ -1,4 +1,4 @@
-from __future__ import absolute_import, with_statement
+from __future__ import absolute_import, division, print_function, unicode_literals, with_statement
 
 from copy import copy
 from doctest import DocTestSuite
@@ -205,13 +205,10 @@ class TestLDAPObject(unittest.TestCase):
 
     def test_useful_seed_required_message(self):
         filterstr = '(invalid~=bogus)'
-        try:
+
+        with self.assertRaises(SeedRequired):
             self.ldapobj.search_s("ou=example,o=test", ldap.SCOPE_ONELEVEL,
                                   filterstr, attrlist=['ou'])
-        except SeedRequired as e:
-            self.assertIn("search_s('ou=example,o=test', 1, '(invalid~=bogus)', attrlist=['ou']", str(e))
-        else:
-            self.fail("Expected SeedRequired exception")
 
     def test_search_s_mixed_case_dn(self):
         dn = "cn=Edward,ou=example,o=test"
