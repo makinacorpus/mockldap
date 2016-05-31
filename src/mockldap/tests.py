@@ -531,6 +531,12 @@ class TestLDAPObject(unittest.TestCase):
 
         self.assertIn('uid=alice1,ou=new,o=test', self.ldapobj.directory)
 
+    def test_rename_s_newsuperior_same_rdn_keeps_unchanged_attr(self):
+        self.ldapobj.rename_s(alice[0], 'cn=alice', other[0])
+
+        self.assertEqual(self.ldapobj.directory['cn=alice,ou=other,o=test']['cn'],
+                ['alice'])
+
     def test_rename_s_no_such_object(self):
         self.assertRaises(ldap.NO_SUCH_OBJECT, self.ldapobj.rename_s,
                           'uid=invalid,ou=example,o=test', 'uid=invalid2')

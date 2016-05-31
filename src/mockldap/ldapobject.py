@@ -360,16 +360,16 @@ class LDAPObject(RecordableMethods):
         oldattr, oldvalue = dn.split(',')[0].split('=')
         newattr, newvalue = newrdn.split('=')
 
+        if oldattr == newattr or len(entry[oldattr]) > 1:
+            entry[oldattr].remove(oldvalue)
+        else:
+            del entry[oldattr]
+
         try:
             if newvalue not in entry[newattr]:
                 entry[newattr].append(newvalue)
         except KeyError:
             entry[newattr] = [newvalue]
-
-        if oldattr == newattr or len(entry[oldattr]) > 1:
-            entry[oldattr].remove(oldvalue)
-        else:
-            del entry[oldattr]
 
         self.directory[newfulldn] = entry
         del self.directory[dn]
