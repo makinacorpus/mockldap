@@ -139,6 +139,13 @@ class MockLdap(object):
 
         return ldap_object
 
+    def __enter__(self):
+        self.start()
+        return self
+
+    def __exit__(self, exc_type, exc_value, traceback):
+        self.stop()
+
 
 def map_keys(f, d):
     """ Transform a dictionary by applying a function to each key. """

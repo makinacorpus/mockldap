@@ -1,3 +1,8 @@
+UNRELEASED
+----------
+
+- Add context manager support to MockLdap
+
 v0.2.6 - September 29, 2015 - pyldap
 ------------------------------------
 

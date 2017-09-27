@@ -690,3 +690,12 @@ class TestMockLdap(unittest.TestCase):
         self.mockldap.stop()
 
         self.assertNotEqual(conn1.directory, conn2.directory)
+
+    def test_context_manager(self):
+        mockldap = MockLdap(directory)
+        self.assertIsNone(mockldap.ldap_objects)
+        with mockldap as mockldap2:
+            self.assertIs(mockldap, mockldap2)
+            self.assertIsNotNone(mockldap.ldap_objects)
+            self.assertIsNotNone(mockldap2.ldap_objects)
+        self.assertIsNone(mockldap.ldap_objects)
