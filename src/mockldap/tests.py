@@ -1,15 +1,12 @@
-from __future__ import absolute_import, division, print_function, unicode_literals, with_statement
+from __future__ import absolute_import, division, print_function, unicode_literals
 
 from copy import copy
 from doctest import DocTestSuite
-try:
-    import unittest2 as unittest
-except ImportError:
-    import unittest
+import unittest
 
 import ldap
-import ldap.modlist
 import ldap.filter
+import ldap.modlist
 
 from . import MockLdap
 from .recording import SeedRequired
@@ -534,8 +531,10 @@ class TestLDAPObject(unittest.TestCase):
     def test_rename_s_newsuperior_same_rdn_keeps_unchanged_attr(self):
         self.ldapobj.rename_s(alice[0], 'cn=alice', other[0])
 
-        self.assertEqual(self.ldapobj.directory['cn=alice,ou=other,o=test']['cn'],
-                ['alice'])
+        self.assertEqual(
+            self.ldapobj.directory['cn=alice,ou=other,o=test']['cn'],
+            ['alice']
+        )
 
     def test_rename_s_no_such_object(self):
         self.assertRaises(ldap.NO_SUCH_OBJECT, self.ldapobj.rename_s,

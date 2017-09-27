@@ -1,0 +1,5 @@
+-e .
+coverage
+flake8
+sphinx
+tox

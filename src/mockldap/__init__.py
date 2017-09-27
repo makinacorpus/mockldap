@@ -1,4 +1,4 @@
-from __future__ import absolute_import, division, print_function, unicode_literals, with_statement
+from __future__ import absolute_import, division, print_function, unicode_literals
 
 from collections import defaultdict
 
@@ -140,6 +140,11 @@ class MockLdap(object):
         return ldap_object
 
 
-# Map a dictionary by applying a function to each key/value.
-map_keys = lambda f, d: dict((f(k), v) for k, v in d.items())
-map_values = lambda f, d: dict((k, f(v)) for k, v in d.items())
+def map_keys(f, d):
+    """ Transform a dictionary by applying a function to each key. """
+    return {f(k): v for k, v in d.items()}
+
+
+def map_values(f, d):
+    """ Transform a dictionary by applying a function to each value. """
+    return {k: f(v) for k, v in d.items()}
