@@ -8,8 +8,8 @@ import ldap
 import ldap.filter
 import ldap.modlist
 
-from . import MockLdap
-from .recording import SeedRequired
+from mockldap import MockLdap
+from mockldap.recording import SeedRequired
 
 
 test = ("o=test", {"objectClass": ["top"]})
@@ -62,7 +62,7 @@ class TestLDAPObject(unittest.TestCase):
         self.mockldap.stop()
 
     def test_manual_ldapobject(self):
-        from .ldapobject import LDAPObject
+        from mockldap.ldapobject import LDAPObject
 
         ldapobj = LDAPObject(directory)
 
@@ -640,16 +640,16 @@ class TestMockLdap(unittest.TestCase):
 
     def test_stop_penultimate(self):
         self.mockldap.start()
-        self.mockldap.start('mockldap.tests.initialize')
+        self.mockldap.start('tests.initialize')
         self.mockldap.stop()
 
         self.assertTrue(self.mockldap[''] is not None)
 
     def test_stop_last(self):
         self.mockldap.start()
-        self.mockldap.start('mockldap.tests.initialize')
+        self.mockldap.start('tests.initialize')
         self.mockldap.stop()
-        self.mockldap.stop('mockldap.tests.initialize')
+        self.mockldap.stop('tests.initialize')
 
         self.assertRaises(KeyError, lambda: self.mockldap[''])
 

@@ -22,7 +22,6 @@ setup(
     author_email='psagers@ignorare.net',
     license='BSD',
     packages=['mockldap'],
-    package_dir={'': 'src'},
     classifiers=[
         'Development Status :: 4 - Beta',
         'Environment :: Web Environment',
@@ -45,5 +44,5 @@ setup(
     setup_requires=[
         'setuptools>=0.6c11',
     ],
-    test_suite='mockldap.tests',
+    test_suite='tests',
 )
