@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 
-import sys
+from __future__ import absolute_import, division, print_function, unicode_literals
 
 from setuptools import setup
 
@@ -10,17 +10,10 @@ def readall(path):
         return fp.read()
 
 
-PY3 = (sys.version_info[0] == 3)
-
-if PY3:
-    install_requires = ['pyldap', 'funcparserlib==0.3.6']
-else:
-    install_requires = ['python-ldap', 'funcparserlib==0.3.6', 'mock']
-
 setup(
     name='mockldap',
     version='0.2.6',
-    description=u"A simple mock implementation of python-ldap.",
+    description="A simple mock implementation of python-ldap.",
     long_description=readall('README'),
     url='http://bitbucket.org/psagers/mockldap/',
     author='Peter Sagerson',
@@ -28,7 +21,7 @@ setup(
     license='BSD',
     packages=['mockldap'],
     classifiers=[
-        'Development Status :: 4 - Beta',
+        'Development Status :: 5 - Production/Stable',
         'Environment :: Web Environment',
         'Intended Audience :: Developers',
         'Intended Audience :: System Administrators',
@@ -45,9 +38,16 @@ setup(
         'Topic :: System :: Systems Administration :: Authentication/Directory :: LDAP',
     ],
     keywords=['mock', 'ldap'],
-    install_requires=install_requires,
+    install_requires=[
+        'funcparserlib == 0.3.6',
+
+        'pyldap; python_version >= "3.0"',
+        'python-ldap >= 2.0; python_version < "3.0"',
+
+        'mock; python_version < "3.0"',
+    ],
     setup_requires=[
-        'setuptools>=0.6c11',
+        'setuptools >= 0.6c11',
     ],
     test_suite='tests',
 )
