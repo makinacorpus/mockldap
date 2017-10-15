@@ -119,7 +119,7 @@ class LDAPObject(RecordableMethods):
 
     @recorded
     def search_s(self, base, scope, filterstr='(objectClass=*)', attrlist=None, attrsonly=0):
-        """
+        r"""
         Supports many, but not all, filter strings.
 
         Tests of the form ``'(foo=bar)'`` and ``'(foo=\*)'`` are supported, as

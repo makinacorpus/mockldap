@@ -5,6 +5,11 @@ import sys
 from setuptools import setup
 
 
+def readall(path):
+    with open(path) as fp:
+        return fp.read()
+
+
 PY3 = (sys.version_info[0] == 3)
 
 if PY3:
@@ -16,7 +21,7 @@ setup(
     name='mockldap',
     version='0.2.6',
     description=u"A simple mock implementation of python-ldap.",
-    long_description=open('README').read(),
+    long_description=readall('README'),
     url='http://bitbucket.org/psagers/mockldap/',
     author='Peter Sagerson',
     author_email='psagers@ignorare.net',
