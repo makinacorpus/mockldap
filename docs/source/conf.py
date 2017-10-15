@@ -13,6 +13,19 @@
 
 import os.path
 import sys
+from unittest.mock import MagicMock
+
+
+# readthedocs.org compatibility.
+class Mock(MagicMock):
+    @classmethod
+    def __getattr__(cls, name):
+        return MagicMock()
+
+
+MOCK_MODULES = ['ldap', 'ldap.cidict', 'ldap.dn']
+sys.modules.update((mod_name, Mock()) for mod_name in MOCK_MODULES)
+
 
 # If extensions (or modules to document with autodoc) are in another directory,
 # add these directories to sys.path here. If the directory is relative to the
@@ -33,8 +46,8 @@ extensions = [
 ]
 
 intersphinx_mapping = {
-    'python': ('http://docs.python.org/3/', 'http://docs.python.org/3/objects.inv'),
-    'ldap': ('http://python-ldap.org/doc/html/', None),
+    'python': ('https://docs.python.org/3/', 'https://docs.python.org/3/objects.inv'),
+    'ldap': ('https://www.python-ldap.org/doc/html/', None),
 }
 
 # Add any paths that contain templates here, relative to this directory.
