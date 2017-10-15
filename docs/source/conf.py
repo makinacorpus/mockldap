@@ -33,9 +33,8 @@ extensions = [
 ]
 
 intersphinx_mapping = {
-    'python': ('http://docs.python.org/2/', 'http://docs.python.org/2/objects.inv'),
+    'python': ('http://docs.python.org/3/', 'http://docs.python.org/3/objects.inv'),
     'ldap': ('http://python-ldap.org/doc/html/', None),
-    'mock': ('http://www.voidspace.org.uk/python/mock/', None),
 }
 
 # Add any paths that contain templates here, relative to this directory.

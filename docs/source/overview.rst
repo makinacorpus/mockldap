@@ -13,6 +13,10 @@ way to use mockldap is to provide some static directory content and then let
 for simple LDAP operations--this obviously isn't a complete Python LDAP server
 implementation--but those simple operations tend to cover a lot of cases.
 
+This example integrates with :class:`unittest.TestCase` by explicitly starting
+and stopping the :class:`~mockldap.MockLdap` object. You can also use these
+objects as context managers, if that's more convenient.
+
 
 .. _example:
 

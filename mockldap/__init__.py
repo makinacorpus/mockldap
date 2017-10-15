@@ -21,6 +21,12 @@ class MockLdap(object):
     an :class:`~mockldap.LDAPObject`. This is the same object that will be
     returned by ``ldap.initialize(uri)``, so you can use it to seed return
     values and discover which APIs were called.
+
+    MockLdap objects may be used as context managers in place of calling
+    :meth:`~mockldap.MockLdap.start` and :meth:`~mockldap.MockLdap.stop`
+    manually. The import path for ``ldap.initialize`` can not be overridden in
+    this case.
+
     """
     def __init__(self, directory=None):
         self.directories = {}
@@ -46,6 +52,7 @@ class MockLdap(object):
 
         If URI is not given, this will set the default content for all unknown
         URIs.
+
         """
         if self.ldap_objects is not None:
             raise Exception("You can't add a directory after calling start().")
@@ -54,9 +61,10 @@ class MockLdap(object):
 
     def start(self, path='ldap.initialize'):
         """
-        Patch :func:`ldap.initialize` to return mock LDAPObject instances. This
-        calls :func:`mock.patch`, so you must have the `mock
-        <https://pypi.python.org/pypi/mock/>`_ library installed.
+        Patch :func:`ldap.initialize` to return mock LDAPObject instances.
+
+        This calls :func:`mock.patch`, so under Python 2, you must have the
+        `mock <https://pypi.python.org/pypi/mock/>`_ library installed.
 
         :param path: The module path to ``ldap.initialize``.
         :type path: string
@@ -74,7 +82,8 @@ class MockLdap(object):
             initialize(uri)
 
         then you need to call ``start('path.to.your.mod.initialize')``. See
-        :ref:`where-to-patch` for more.
+        :ref:`python:where-to-patch` for more.
+
         """
         try:
             from unittest.mock import patch
@@ -108,6 +117,7 @@ class MockLdap(object):
         Calls to :meth:`~mockldap.MockLdap.start` and
         :meth:`~mockldap.MockLdap.stop` must be balanced. After the final call
         to stop, we'll reset all :class:`~mockldap.LDAPObject` instances.
+
         """
         if path not in self.patchers:
             raise ValueError("%r is not patched." % (path,))
@@ -124,6 +134,7 @@ class MockLdap(object):
 
         If you called :meth:`~mockldap.MockLdap.start` multiple times, this is
         the easiest way to reset everything.
+
         """
         for patcher in self.patchers.values():
             patcher.stop()
@@ -141,6 +152,7 @@ class MockLdap(object):
 
     def __enter__(self):
         self.start()
+
         return self
 
     def __exit__(self, exc_type, exc_value, traceback):
