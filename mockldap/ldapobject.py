@@ -248,7 +248,7 @@ class LDAPObject(RecordableMethods):
         # Find directory entries within the requested scope
         base_parts = ldap.dn.explode_dn(base.lower())
         base_len = len(base_parts)
-        dn_parts = dict((dn, ldap.dn.explode_dn(dn.lower())) for dn in self.directory.keys())
+        dn_parts = {dn: ldap.dn.explode_dn(dn.lower()) for dn in self.directory.keys()}
 
         if scope == ldap.SCOPE_BASE:
             dns = (dn for dn, parts in dn_parts.items() if parts == base_parts)
@@ -270,11 +270,11 @@ class LDAPObject(RecordableMethods):
 
         # Apply attribute filtering, if any
         if attrlist is not None:
-            results = ((dn, dict((attr, values) for attr, values in attrs.items() if attr in attrlist))
+            results = ((dn, {attr: values for attr, values in attrs.items() if attr in attrlist})
                        for dn, attrs in results)
 
         if attrsonly:
-            results = ((dn, dict((attr, []) for attr in attrs.keys()))
+            results = ((dn, {attr: [] for attr in attrs.keys()})
                        for dn, attrs in results)
 
         return list(results)
