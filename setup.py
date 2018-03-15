@@ -40,11 +40,8 @@ setup(
     keywords=['mock', 'ldap'],
     install_requires=[
         'funcparserlib == 0.3.6',
-
-        'pyldap; python_version >= "3.0"',
-        'python-ldap >= 2.0; python_version < "3.0"',
-
         'mock; python_version < "3.0"',
+        'python-ldap >= 3.0',
     ],
     setup_requires=[
         'setuptools >= 0.6c11',
