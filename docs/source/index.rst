@@ -1,7 +1,7 @@
 mockldap
 ========
 
-.. include:: ../../README
+.. include:: ../../README.rst
 
 .. toctree::
     :maxdepth: 2
@@ -15,4 +15,4 @@ mockldap
 License
 -------
 
-.. include:: ../../LICENSE
+.. include:: ../../LICENSE.rst
