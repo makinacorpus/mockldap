@@ -12,16 +12,8 @@ wheel:
 	-rm -r build
 	python setup.py bdist_wheel
 
-.PHONY: sign
-sign:
-	for f in dist/*.gz dist/*.whl; do \
-	    if [ ! -e "$${f}.asc" ]; then \
-	        gpg2 --detach-sign --armor "$${f}"; \
-	    fi \
-	done
-
 .PHONY: upload
-upload: sign
+upload:
 	twine upload dist/*
 
 .PHONY: clean
